@@ -80,6 +80,7 @@ export class UI {
             button.setAttribute("disabled", "");
         });
 
+        document.getElementById('isbn').value = '';
         document.getElementById('isbn').setAttribute("disabled", "");
         document.querySelector("button[type=submit]").setAttribute("disabled", "");
     }
