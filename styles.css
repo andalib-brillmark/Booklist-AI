@@ -58,8 +58,12 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+button:hover:not(.edit):not(.delete):not([disabled]) {
     background-color: #4cae4c;
+}
+
+input:disabled, button:disabled, button:hover:disabled {
+    cursor: not-allowed !important;
 }
 
 table {

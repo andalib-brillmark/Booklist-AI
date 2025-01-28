@@ -18,9 +18,8 @@ document.getElementById('book-form').addEventListener('submit', (e) => {
     // Check unique isbn
     const existingIsbn = Storage.getBooks().filter((book) => isbn == book.isbn);
 
-    if(existingIsbn) {
+    if(existingIsbn.length) {
         alert("Please enter unique ISBN");
-        UI.clearFields();
         return;
     }
 
@@ -38,12 +37,24 @@ document.getElementById('book-list').addEventListener('click', (e) => {
         Storage.removeBook(isbn);
     } else if (e.target.classList.contains('edit')) {
         UI.editBook(e.target);
+        UI.disableButtons();
     }
     else if (e.target.classList.contains('update')) {
-        // Storage.updateBook();
+        const title = document.getElementById('title').value;
+        const author = document.getElementById('author').value;
+        const isbn = e.target.dataset.isbn;
+
+        if (title === '' || author === '') {
+            alert('Please fill in all fields');
+            return;
+        }
+        
+        Storage.updateBook(title, author, isbn);
+        UI.updateBook(e.target, title, author);
     }
     else {
         UI.clearFields();
+        UI.enableButtons();
         UI.resetButtons(e.target);
     }
 });

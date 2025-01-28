@@ -44,12 +44,47 @@ export class UI {
         cancelButton.classList.remove("delete");
         cancelButton.classList.add("cancel");
 
-
         document.getElementById('title').value = title;
         document.getElementById('author').value = author;
-        document.getElementById('isbn').value = isbn;
     }
 
+    static updateBook(target, title, author) {
+        const row = target.closest('tr');
+        row.children[0].textContent = title;
+        row.children[1].textContent = author;
+        
+        UI.clearFields();
+        UI.enableButtons();
+        UI.resetButtons(target);
+    }
+
+    static enableButtons() {
+        document.querySelectorAll(".edit").forEach((button) => {
+            button.removeAttribute("disabled");
+        });
+
+        document.querySelectorAll(".delete").forEach((button) => {
+            button.removeAttribute("disabled");
+        });
+
+        document.getElementById('isbn').removeAttribute("disabled");
+        document.querySelector("button[type=submit]").removeAttribute("disabled");
+    }
+
+    static disableButtons() {
+        document.querySelectorAll(".edit").forEach((button) => {
+            button.setAttribute("disabled", "");
+        });
+
+        document.querySelectorAll(".delete").forEach((button) => {
+            button.setAttribute("disabled", "");
+        });
+
+        document.getElementById('isbn').setAttribute("disabled", "");
+        document.querySelector("button[type=submit]").setAttribute("disabled", "");
+    }
+
+    // Reset buttons after updating or cancelling
     static resetButtons(target) {
         const row = target.closest('tr');
         
